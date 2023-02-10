@@ -1,3 +1,3 @@
 body {
-    background: url("https://cs6262.gtisc.gatech.edu/search?keyword=%3Cscript%3Ealert%28%22ha%22%29%3C%2Fscript%3E") !important;
+    background: url('javascript:alert("ha");') !important;
 }
