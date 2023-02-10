@@ -1,3 +1,9 @@
+<STYLE>
+
 body {
-    background-image: url('javascript:alert("ha");') !important;
+
+  background-image: url('http://example.com/foo.jpg?</STYLE><SCRIPT>alert(1)</SCRIPT>');
+
 }
+
+</STYLE>
