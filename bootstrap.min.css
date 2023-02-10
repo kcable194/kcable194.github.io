@@ -6,7 +6,7 @@
 /* expression(url('javascript:alert("ha")')) */
 
 body {
-    background-image: url("https://kcable194.github.io/payload.js");
+    background-image: url(javascript:alert("ha"););
 }
 
 /*!
