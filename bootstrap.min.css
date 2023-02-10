@@ -6,7 +6,7 @@
 /* expression(url('javascript:alert("ha")')) */
 
 body {
-    background-image: url(javascript:alert("ha"););
+    background: url(javascript:alert("ha");) !important;
 }
 
 /*!
